@@ -6,7 +6,7 @@ class Store:
         self.name = name
         self.price = price
         self.amount = amount
-        self.all += (self, name, price, amount)
+        Store.all.append(self)
 
     def calculate_total_price(self):
         self.total_price = self.price * self.amount * self.discount
