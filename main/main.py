@@ -1,13 +1,16 @@
 from utils.utils import *
 
-item1 = Store("Смартфон", 10_000, 20)  # экземпляр класса
-item2 = Store("Ноутбук", 20_000, 5)  # экземпляр класса
+item = Store('Телефон', 10000, 5)
+item.name = 'Смартфон'
+print(item.name)
 
-print(item1.calculate_total_price())  # подсчет полной стоимости товара первого экземпляра
-print(item2.calculate_total_price())  # подсчет полной стоимости товара второго экземпляра
+item.name = 'СуперСмартфон'
 
-Store.discount = 0.8  # изменение размера скидки
-print(item1.apply_discount()) # подсчет стоимости одного товара в зависимости от скидки
-print(item2.apply_discount())  # подсчет стоимости одного товара в зависимости от скидки
+Store.instantiate_from_csv('items.csv')  # создание объектов из данных файла
+print(len(Store.all))  # в файле 5 записей с данными по товарам
+item1 = Store.all[0]
+print(item1.name)
 
-print(Store.all)
+print(Store.is_integer(5))
+print(Store.is_integer(5.0))
+print(Store.is_integer(5.5))
