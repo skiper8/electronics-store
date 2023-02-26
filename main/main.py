@@ -1,10 +1,10 @@
 from utils.utils import *
 
-item = Store('Телефон', 10000, 5)
-item.name = 'Смартфон'
-print(item.name)
+# item = Store('Телефон', 10000, 5)
+# item.name = 'Смартфон'
+# print(item.name)
 
-item.name = 'СуперСмартфон'
+# item.name = 'СуперСмартфон'
 
 Store.instantiate_from_csv('items.csv')  # создание объектов из данных файла
 print(len(Store.all))  # в файле 5 записей с данными по товарам

@@ -7,8 +7,8 @@ class Store:
 
     def __init__(self, name: str, price: int, amount: int):
         self.__name = name
-        self.price = price
-        self.amount = amount
+        self.__price = price
+        self.__amount = amount
         Store.all.append(self)
 
     @property
@@ -22,7 +22,23 @@ class Store:
         if len(value) <= 10:
             self.__name = value
         else:
-            print('Exception: Длина наименования товара превышает 10 символов.')
+            raise Exception('Длина наименования товара превышает 10 символов.')
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value):
+        self.__price = value
+
+    @property
+    def amount(self):
+        return self.__amount
+
+    @amount.setter
+    def amount(self, value):
+        self.__amount = value
 
     @classmethod
     def instantiate_from_csv(cls, path: str) -> None:
@@ -53,4 +69,3 @@ class Store:
     def apply_discount(self):
         """Подсчитывает стоимость одной еденицы товара с имеюшейся скидкой"""
         return self.price * self.discount
-
