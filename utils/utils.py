@@ -69,3 +69,9 @@ class Store:
     def apply_discount(self):
         """Подсчитывает стоимость одной еденицы товара с имеюшейся скидкой"""
         return self.price * self.discount
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}('{self.__name}', '{self.__price}', {self.__amount})"
+
+    def __str__(self) -> str:
+        return f'{self.__name}'
