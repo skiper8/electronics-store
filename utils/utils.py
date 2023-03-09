@@ -1,7 +1,7 @@
 import csv
 
 
-class Store:
+class Item:
     discount = 1  # уровень цен на товары
     all = []
 
@@ -9,7 +9,7 @@ class Store:
         self.__name = name
         self.__price = price
         self.__amount = amount
-        Store.all.append(self)
+        Item.all.append(self)
 
     @property
     def name(self):
@@ -71,7 +71,26 @@ class Store:
         return self.price * self.discount
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}('{self.__name}', '{self.__price}', {self.__amount})"
+        return f"{self.__class__.__name__}('{self.__name}', '{self.__price}', {self.__amount}, {self.number_of_sim})"
 
     def __str__(self) -> str:
         return f'{self.__name}'
+
+
+class Phone(Item):
+
+    def __init__(self, name, price, amount, number_of_sim):
+        super().__init__(name, price, amount)
+        self._number_of_sim = number_of_sim
+
+    @property
+    def number_of_sim(self):
+        return self._number_of_sim
+
+    @number_of_sim.setter
+    def number_of_sim(self, value):
+        if value <= 0:
+            raise ValueError('Количество физических SIM-карт должно быть целым числом больше нуля.')
+
+    def __add__(self, other):
+        return self.amount + other.amount
