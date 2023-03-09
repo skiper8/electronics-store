@@ -1,6 +1,7 @@
 from utils.utils import *
+from utils.utils_Phone import *
 
-# item = Store('Телефон', 10000, 5)
+# item = Item('Телефон', 10000, 5)
 # item.name = 'Смартфон'
 # print(item.name)
 
