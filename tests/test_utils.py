@@ -7,9 +7,9 @@ def test_calculate_total_price():
 
 
 def test_apply_discount():
-    item = Store('Телефон', 100, 1)
+    item = Store('Телефон', 1000, 1)
     item.discount = 0.5
-    assert item.apply_discount() == 50.0
+    assert item.apply_discount() == 500.0
 
 
 def test_instantiate_from_csv():
