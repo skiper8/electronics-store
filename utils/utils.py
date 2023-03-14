@@ -1,4 +1,6 @@
 import csv
+import abc
+
 
 class Item:
     discount = 1  # уровень цен на товары
@@ -74,3 +76,34 @@ class Item:
 
     def __str__(self) -> str:
         return f'{self.__name}'
+
+
+class MixinLog(Item):
+    def __init__(self, name, price, amount):
+        self.__language = 'EN'
+        super().__init__(name, price, amount)
+
+    @property
+    def language(self):
+        return self.__language
+
+    def change_lang(self):
+        if self.__language in 'EN':
+            self.__language = 'RU'
+        else:
+            self.__language = 'EN'
+
+
+class KeyBoard(MixinLog, Item):
+
+    def __init__(self, name, price, amount):
+        super().__init__(name, price, amount)
+
+
+kb = KeyBoard('Dark Project KD87A', 9600, 5)
+print(kb)
+print(kb.language)
+kb.change_lang()
+print(kb.language)
+
+

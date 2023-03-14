@@ -13,9 +13,8 @@ def test_apply_discount():
 
 
 def test_instantiate_from_csv():
-    Item.instantiate_from_csv('test_items.csv')
+    Item.instantiate_from_csv('../test_items.csv')
     assert len(Item.all) == 7
-
 
 def test_prop():
     item = Item('Телефон', 100, 1)
@@ -31,3 +30,4 @@ def test_is_integer():
     item = Item('Телефон', 100, 1)
     assert item.is_integer(1.6) is False
     assert item.is_integer(10) is True
+
