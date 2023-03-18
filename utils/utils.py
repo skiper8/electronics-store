@@ -1,4 +1,5 @@
 import csv
+import os
 import abc
 
 
@@ -42,11 +43,18 @@ class Item:
         self.__amount = value
 
     @classmethod
-    def instantiate_from_csv(cls, path: str) -> None:
+    def instantiate_from_csv(cls, filename) -> None:
         """Создаёт новые экзэмпляры из csv файла"""
 
-        with open(path, encoding='UTF-8') as file:
+        if not os.path.isfile(filename):
+            raise FileNotFoundError('Отсутствует файл items.csv')
+
+        with open(filename, encoding='UTF-8') as file:
             csv_file = csv.DictReader(file)
+            reader = csv.DictReader(file)
+            list_reader = list(reader)
+            if len(list_reader[0]) != 3:
+                raise IndentationError("Файл item.csv поврежден")
             for row in csv_file:
                 cls(
                     name=row['name'],
@@ -98,12 +106,4 @@ class KeyBoard(MixinLog, Item):
 
     def __init__(self, name, price, amount):
         super().__init__(name, price, amount)
-
-
-kb = KeyBoard('Dark Project KD87A', 9600, 5)
-print(kb)
-print(kb.language)
-kb.change_lang()
-print(kb.language)
-
 
