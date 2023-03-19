@@ -1,6 +1,4 @@
 import csv
-import os
-import abc
 
 
 class Item:
@@ -43,39 +41,40 @@ class Item:
         self.__amount = value
 
     @classmethod
-    def instantiate_from_csv(cls, filename) -> None:
+    def instantiate_from_csv(cls, filename):
         """Создаёт новые экзэмпляры из csv файла"""
-
-        if not os.path.isfile(filename):
-            raise FileNotFoundError('Отсутствует файл items.csv')
-
-        with open(filename, encoding='UTF-8') as file:
-            csv_file = csv.DictReader(file)
-            reader = csv.DictReader(file)
-            list_reader = list(reader)
-            if len(list_reader[0]) != 3:
-                raise IndentationError("Файл item.csv поврежден")
-            for row in csv_file:
-                cls(
-                    name=row['name'],
-                    price=row['price'],
-                    amount=row['quantity']
-                )
+        try:
+            with open(filename, 'r', encoding='UTF-8') as file:
+                reader = csv.DictReader(file, delimiter=',')
+                for row in reader:
+                    if list(row.keys()) == ['name', 'price', 'quantity']:
+                        cls(row['name'], int(row['price']), int(row['quantity']))
+                    else:
+                        raise IndentationError
+        except FileNotFoundError:
+            print(f'отстутсвует файл items.csv')
+        except IndentationError:
+            print('Файл items.csv поврежден')
 
     @staticmethod
     def is_integer(num) -> bool:
+
         """Проверяет, является ли число целым"""
+
         if isinstance(num, int) or isinstance(num, float) and num % 1 == 0:
             return True
         else:
             return False
 
     def calculate_total_price(self):
+
         """Подсчитывает общую стоимость всех товаров"""
+
         self.total_price = self.price * self.amount * self.discount
         return self.total_price
 
     def apply_discount(self):
+
         """Подсчитывает стоимость одной еденицы товара с имеюшейся скидкой"""
         return self.price * self.discount
 
@@ -106,4 +105,3 @@ class KeyBoard(MixinLog, Item):
 
     def __init__(self, name, price, amount):
         super().__init__(name, price, amount)
-

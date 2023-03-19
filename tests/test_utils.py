@@ -1,3 +1,5 @@
+import pytest
+import csv
 from utils.utils import *
 
 
@@ -13,7 +15,7 @@ class Test_Item():
         assert item.apply_discount() == 500.0
 
     def test_instantiate_from_csv(self):
-        Item.instantiate_from_csv('items.csv')
+        Item.instantiate_from_csv('../test_items.csv')
         assert len(Item.all) == 2
 
     def test_prop(self):
@@ -29,5 +31,14 @@ class Test_Item():
         item = Item('Телефон', 100, 1)
         assert item.is_integer(1.6) is False
         assert item.is_integer(10) is True
+
+    def test_instantiate_from_csv_file_not_found(self):
+        """Ожидается обработка исключения FileNotFoundError в связи с отсутствием файла"""
+        assert Item.instantiate_from_csv('../test_items.csv') == print(
+            f'отстутсвует файл items.csv')
+
+    def test_instantiate_from_csv_file_corrupted(self):
+        assert Item.instantiate_from_csv('../test_items2.csv') == print(
+            f'Файл items.csv поврежден')
 
 
